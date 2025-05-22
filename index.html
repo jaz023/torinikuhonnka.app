@@ -2,27 +2,29 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>昼飯発注/午餐訂購</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
+  <img src="images/sumitomo.png" class="logo">
     <h2>オンラインオーダー/線上點餐</h2>
-<form id="orderForm">
+    <form id="orderForm">
   
   <div class="form-group">
     <label for="name">名前/姓名：</label>
       <input type="text" class="form-input name" id="name" placeholder="名前入力/輸入姓名">
   </div>
 
-      <div class="menu-item">
+     <div class="menu-item">
         <img src="images/chikenrice1.jpeg" alt="モモ肉弁当">
         <div class="info">
           <h3>モモ肉弁当/好吃雞肉飯</h3>
 
           <p class="price" data-price="125">金額：125</p>
 
-          <select class="qty" data-item="モモ肉弁当/好吃雞肉飯">
+          <select class="qty" name="qty[]" data-item="モモ肉弁当/好吃雞肉飯">
            <option value="0">0</option>
            <option value="1">1</option>
            <option value="2">2</option>
@@ -34,8 +36,10 @@
            <option value="8">8</option>
            <option value="9">9</option>
            <option value="10">10</option>
+           <option value="other">その他/其他</option>
          </select>
-          <input type="text" placeholder="備考" class="note">
+          <input type="number" name="qty_input[]" class="qty-input" style="display:none;" min="0" max="99" value="0" />
+          <input type="text" name="note[]" placeholder="備考" class="note">
         </div>
       </div>
 
@@ -58,8 +62,10 @@
            <option value="8">8</option>
            <option value="9">9</option>
            <option value="10">10</option>
+           <option value="other">その他/其他</option>
          </select>
-          <input type="text" placeholder="備考" class="note">
+          <input type="number" name="qty_input[]" class="qty-input" style="display:none;" min="0" max="99" value="0" />
+          <input type="text" name="note[]" placeholder="備考" class="note">
         </div>
       </div>
 
@@ -82,8 +88,10 @@
            <option value="8">8</option>
            <option value="9">9</option>
            <option value="10">10</option>
+           <option value="other">その他/其他</option>
          </select>
-          <input type="text" placeholder="備考" class="note">
+          <input type="number" name="qty_input[]" class="qty-input" style="display:none;" min="0" max="99" value="0" />
+          <input type="text" name="note[]" placeholder="備考" class="note">
         </div>
       </div>
 
@@ -106,8 +114,10 @@
            <option value="8">8</option>
            <option value="9">9</option>
            <option value="10">10</option>
+           <option value="other">その他/其他</option>
          </select>
-          <input type="text" placeholder="備考" class="note">
+          <input type="number" name="qty_input[]" class="qty-input" style="display:none;" min="0" max="99" value="0" />
+          <input type="text" name="note[]" placeholder="備考" class="note">
         </div>
       </div>
 
@@ -130,8 +140,10 @@
            <option value="8">8</option>
            <option value="9">9</option>
            <option value="10">10</option>
+           <option value="other">その他/其他</option>
          </select>
-          <input type="text" placeholder="備考" class="note">
+          <input type="number" name="qty_input[]" class="qty-input" style="display:none;" min="0" max="99" value="0" />
+          <input type="text" name="note[]" placeholder="備考" class="note">
         </div>
       </div>
 
@@ -154,14 +166,31 @@
            <option value="8">8</option>
            <option value="9">9</option>
            <option value="10">10</option>
+           <option value="other">その他/其他</option>
          </select>
-          <input type="text" placeholder="備考" class="note">
+          <input type="number" name="qty_input[]" class="qty-input" style="display:none;" min="0" max="99" value="0" />
+          <input type="text" name="note[]" placeholder="備考" class="note">
         </div>
       </div>
 
-      <button type="submit">決定/確定</button>
+       <button type="submit">決定/確定</button>
     </form>
     <p id="response"></p>
+  </div>
+  <div id="confirmModal" class="modal">
+    <div class="modal-content">
+      <h3>注文内容決定/確認訂單內容</h3>
+      <div id="orderSummary"></div>
+      <button id="submitOrder" type="button">送ります/送出訂單</button>
+      <button onclick="closeModal()" type="button">キャンセル/取消</button>
+      </div>
+  </div>
+   
+  <div id="finalConfirmModal" class="modal">
+    <div class="modal-content">
+      <h3>注文しました、ありがとうございます！/訂單已送出，感謝您的訂購！</h3>
+      <button onclick="document.getElementById('finalConfirmModal').classList.remove('show')" type="button">確定</button>
+      </div>
   </div>
   <script src="script.js"></script>
 </body>
