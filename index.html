@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>昼飯発注/午餐訂購</title>
@@ -11,11 +12,14 @@
   <img src="images/sumitomo.png" class="logo">
     <h2>オンラインオーダー/線上點餐</h2>
     <form id="orderForm">
-  
+
+  <div id="loadingSpinner" class="spinner" style="display:none;"></div>
+
   <div class="form-group">
     <label for="name">名前/姓名：</label>
       <input type="text" class="form-input name" id="name" placeholder="名前入力/輸入姓名">
   </div>
+
 
      <div class="menu-item">
         <img src="images/chikenrice1.jpeg" alt="モモ肉弁当">
@@ -185,6 +189,8 @@
       <button onclick="closeModal()" type="button">キャンセル/取消</button>
       </div>
   </div>
+
+  <audio id="clickSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_09c1ffb05d.mp3" preload="auto"></audio>
    
   <div id="finalConfirmModal" class="modal">
     <div class="modal-content">
