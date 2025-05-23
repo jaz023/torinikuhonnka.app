@@ -151,19 +151,24 @@ select.qty {
 }
 
 .logo {
-  width: 125px;
+  width: 200px;
   height: auto;
 }
 
 #submitOrder {
-  background-color: #28a745;
+  min-width: 150px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #3e8ed0;
   color: white;
   border: none;
-  margin-right: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
-
 #submitOrder:hover {
-  background-color: #218838;
+  background-color: #336ca6;
 }
 
 #response {
@@ -235,7 +240,7 @@ select.qty {
 }
 
 .modal {
-  display: none; /* 預設不顯示 */
+  /* display: none; 先註解或刪掉這行 */
   position: fixed;
   z-index: 1000;
   left: 0;
@@ -244,18 +249,122 @@ select.qty {
   height: 100%;
   overflow: auto;
   background-color: rgba(0,0,0,0.5); /* 半透明背景 */
+
+  /* 新增 Flexbox 置中 */
+  justify-content: center;
+  align-items: center;
+
+  /* 預設隱藏用 opacity 和 pointer-events 也可以 */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
 .modal.show {
-  display: block;
+  display: flex;      /* 這裡確保顯示 */
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .modal-content {
   background-color: #fff;
-  margin: 10% auto;
   padding: 20px;
   border-radius: 10px;
   width: 90%;
   max-width: 500px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+ .modal button {
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    position: relative;
+    overflow: hidden;
+    will-change: transform;
+  }
+
+  .modal button:hover {
+    background-color: #0056b3;
+  }
+
+  .modal button:active {
+    animation: exaggeratedBounce 0.6s ease forwards;
+    background-color: #004494;
+  }
+
+  @keyframes exaggeratedBounce {
+    0%   { transform: scale(1); }
+    20%  { transform: scale(0.75, 0.85); }
+    40%  { transform: scale(1.15, 1.05); }
+    60%  { transform: scale(0.95, 1.02); }
+    80%  { transform: scale(1.03, 0.98); }
+    100% { transform: scale(1); }
+  }
+
+  /* 閃光特效 */
+  .flash {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 150%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: skewX(-45deg);
+    animation: flashEffect 0.4s ease-out;
+    pointer-events: none;
+  }
+
+  @keyframes flashEffect {
+    from { left: -75%; opacity: 1; }
+    to   { left: 125%; opacity: 0; }
+  }
+
+  /* 送出中按鈕的 spinner */
+.button-loading {
+  position: relative;
+  pointer-events: none; /* 禁用點擊 */
+  color: transparent; /* 隱藏文字 */
+}
+
+.button-loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border: 3px solid #28a745;       /* 綠色邊框 */
+  border-top-color: transparent;  /* 上邊透明 */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.spinner {
+  border: 8px solid #f3f3f3; /* 淺灰 */
+  border-top: 8px solid #3498db; /* 藍色 */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+
+  /* 置中固定在頁面中間 */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin: -30px 0 0 -30px; /* 讓 spinner 置中 */
+  z-index: 2000;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
