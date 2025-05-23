@@ -128,6 +128,7 @@ document.getElementById('submitOrder').addEventListener('click', function () {
 
     document.getElementById('finalConfirmModal').classList.add('show');
 
+    // 隱藏所有數字輸入欄並清空
     document.querySelectorAll('.qty-input').forEach(input => {
       input.style.display = 'none';
       input.value = 0;
@@ -140,6 +141,7 @@ document.getElementById('submitOrder').addEventListener('click', function () {
   });
 });
 
+// 監聽 select 變化，控制「其他」數字輸入框顯示與必填
 document.querySelectorAll('.qty').forEach(select => {
   select.addEventListener('change', function () {
     const input = this.closest('.menu-item').querySelector('.qty-input');
