@@ -55,6 +55,7 @@ function closeModal() {
   confirmModal.classList.remove('show');
 }
 
+
 document.getElementById('submitOrder').addEventListener('click', function () {
   const name = document.getElementById('name').value.trim();
   const items = document.querySelectorAll('.menu-item');
@@ -116,31 +117,31 @@ document.getElementById('submitOrder').addEventListener('click', function () {
   }
 
   fetch(scriptURL, {
-  method: 'POST',
-  body: formData
-})
-.then(res => res.text())
-.then(() => {
-  orderForm.reset();
+    method: 'POST',
+    body: formData
+  })
+  .then(res => res.text())
+  .then(() => {
+    orderForm.reset();
 
-  closeModal();             // = confirmModal.classList.remove('show');
+    closeModal();             // = confirmModal.classList.remove('show');
 
-  document.getElementById('finalConfirmModal').classList.add('show');
+    document.getElementById('finalConfirmModal').classList.add('show');
 
-  document.querySelectorAll('.qty-input').forEach(input => {
-    input.style.display = 'none';
-    input.value = 0;
+    // 隱藏所有數字輸入欄並清空
+    document.querySelectorAll('.qty-input').forEach(input => {
+      input.style.display = 'none';
+      input.value = 0;
+      input.required = false;
+    });
+  })
+  .catch(error => {
+    console.error('送出失敗:', error);
+    alert('もう一度試してみます\n送出失敗，請稍後再試');
   });
-})
-.catch(error => {
-  console.error('送出失敗:', error);
-  alert('もう一度試してみます\n送出失敗，請稍後再試');
 });
 
-
-
-});
-
+// 監聽 select 變化，控制「其他」數字輸入框顯示與必填
 document.querySelectorAll('.qty').forEach(select => {
   select.addEventListener('change', function () {
     const input = this.closest('.menu-item').querySelector('.qty-input');
